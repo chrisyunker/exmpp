@@ -876,12 +876,5 @@ storbi2bi(Binary) when is_binary(Binary) ->
     Binary.
 
 -spec(binary_split/2 :: (binary(), char()) -> [binary()]).
-
-binary_split(B, C) -> binary_split(B, C, <<>>, []).
-
-binary_split(<<C, Rest/binary>>, C, Acc, Tokens) ->
-    binary_split(Rest, C, <<>>, [Acc | Tokens]);
-binary_split(<<C1, Rest/binary>>, C, Acc, Tokens) ->
-    binary_split(Rest, C, <<Acc/binary, C1>>, Tokens);
-binary_split(<<>>, _C, Acc, Tokens) ->
-    lists:reverse([Acc | Tokens]).
+binary_split(B, C) ->
+    binary:split(B, erlang:list_to_binary([C])).
