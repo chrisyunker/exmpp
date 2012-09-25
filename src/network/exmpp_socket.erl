@@ -47,6 +47,7 @@ connect(ClientPid, StreamRef, {Host, Port, Options}) ->
     LocalIP = proplists:get_value(local_ip, Options, undefined),                     
     LocalPort= proplists:get_value(local_port, Options, undefined),                  
     SckType = proplists:get_value(socket_type, Options, gen_tcp),                  
+    ReuseAddr = proplists:get_value(reuseaddr, Options, true),
     IPOptions = case LocalIP of                                                                                          
                         undefined -> [];                                           
                         _ ->  case LocalPort of                                                                        
@@ -55,7 +56,7 @@ connect(ClientPid, StreamRef, {Host, Port, Options}) ->
                               end                                                                                      
                 end,                                                                                                   
     DefaultOptions = [{packet,0}, binary, {active, false}] ++ IPOptions,
-    Opts = [{reuseaddr,true}|DefaultOptions],
+    Opts = [{reuseaddr,ReuseAddr}|DefaultOptions],
     case SckType:connect(Host, Port, Opts, 30000) of
 	{ok, Socket} ->
             ESocket = {SckType, Socket},
