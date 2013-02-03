@@ -1,6 +1,6 @@
 {application, exmpp, [
     {description, "XMPP/Jabber protocol oriented XML library"},
-    {vsn, "0.9.9"},
+    {vsn, "1.0.1"},
     {modules, [
         exmpp,
         exmpp_caps,
